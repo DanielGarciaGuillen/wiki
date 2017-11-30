@@ -1,34 +1,22 @@
-
-const searchInput = document.querySelector('.search');
-var searchWord =  document.querySelector('.search').innerHTML;
-
-const suggestions = document.querySelector('.suggestions');
-console.log(searchWord);
-
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
-var url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=" + searchWord + "&srlimit=10"; /* Albert%20Einstein; */
+var url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=Albert%20Einstein&srlimit=10"; /* Albert%20Einstein; */
 
-var titleid = document.getElementById("titleId").innerHtml;
-console.log(titleid);
+var list =[];
 
-
-
-var list =[] ;
-
-
-function apiSearch(){fetch(proxyurl + url)
+fetch(proxyurl + url)
     .then(blob=>blob.json())
     .then(data=> list.push(...data.query.search));
 
-    function findMatches(wordToMatch, list){
-        return list.filter(search => {      
-        const regex = new RegExp(wordToMatch, 'gi');
-        return search.title.match(regex)
+        function findMatches(wordToMatch, list){
+            return list.filter(search => {      
+            const regex = new RegExp(wordToMatch, 'gi');
+            return search.title.match(regex)
     });
-}
-}
+    }
+
 
 function displayMatches(){
+    console.log(this.value);
     const matchArray = findMatches(this.value, list)
     const html = matchArray.map(search =>{
         return`
@@ -40,10 +28,12 @@ function displayMatches(){
     suggestions.innerHTML = html;
 }
 
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
 
 
-/* searchInput.addEventListener('change', displayMatches); */
 searchInput.addEventListener('keyup', displayMatches);
+
 
 
 
