@@ -1,7 +1,8 @@
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 var url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=Albert%20Einstein&srlimit=10";
 
-var title = document.getElementById('quote');
+var titleid = document.getElementById("titleId").innerHtml;
+console.log(titleid);
 
 var arrayList=[];
 
@@ -9,11 +10,13 @@ fetch(proxyurl + url).then(function(response){
     return response.json();
    
 }).then(function(json){
-    console.log("parsed json", json)
+   /*  console.log("parsed json", json) */
     var list = json.query.search;
-    console.log(list);
+    /* console.log(list); */
     list.forEach(function(k){
-        console.log( k.title + k.snippet)
+        /* console.log( k.title + k.snippet) */
+        titleid = k.title;
+        console.log( k.title)
        
     });
    
