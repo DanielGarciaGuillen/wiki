@@ -5,10 +5,8 @@ var list =[];
 
 var wordToSearch;
 
-
-
 function callApi(){
- fetch(proxyUrl + url+ this.value+ urlEnd)
+ fetch(proxyUrl + url+ wordToSearch+ urlEnd)
     .then(blob=>blob.json())    
     .then(data=> list.push(...data.query.search))
     console.log('callApi executed')
@@ -52,10 +50,16 @@ const suggestions = document.querySelector('.suggestions');
 searchInput.addEventListener('keyup', callApi);
 
 searchInput.addEventListener('keyup',searchWord);
-searchInput.addEventListener('keyup', displayMatches);
-/* searchInput.addEventListener('keydown', deleteList); */
+searchInput.addEventListener('input', displayMatches);
 
-/* function deleteList(){
-    list.length =0;
+
+ searchInput.addEventListener('change', deleteList); 
+
+ function deleteList(){
+    if( wordToSearch != wordToSearch){
+        list = [];
+        console.log('list cleaned');
+    list.length = 0;
+    }
 }
- */
+   
