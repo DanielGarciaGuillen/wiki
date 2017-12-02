@@ -1,6 +1,6 @@
 const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch="/* Albert%20Einstein;"  Albert%20Einstein;  */
-const urlEnd = "&srlimit=10"
+const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=";
+const urlEnd = "&srlimit=10";
 var list =[];
 
 
@@ -15,8 +15,10 @@ function callApi(){
             return search.title.match(regex)  
                    
     });
+    
     }
 }
+
 
 function displayMatches(){    
     const matchArray = findMatches(wordToMatch, list);   
@@ -40,7 +42,7 @@ searchInput.addEventListener('keyup', callApi);
 searchInput.addEventListener('keydown', deleteList);
 
 function deleteList(){
-    list.length = 0;
+    list.length =0;
 }
 
 
