@@ -39,6 +39,7 @@ function displayMatches(){
 
 function searchWord(){
     wordToSearch = this.value;
+    console.log("searchWord called")
   /*   console.log(wordToSearch); */
 }
 
@@ -50,16 +51,16 @@ const suggestions = document.querySelector('.suggestions');
 searchInput.addEventListener('keyup', callApi);
 
 searchInput.addEventListener('keyup',searchWord);
-searchInput.addEventListener('input', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
 
 
- searchInput.addEventListener('change', deleteList); 
+ searchInput.addEventListener('keydown', deleteList); 
 
- function deleteList(){
-    if( wordToSearch != wordToSearch){
+/*  function deleteList(){
+     /* if( wordToSearch !== wordToSearch){
         list = [];
-        console.log('list cleaned');
+        console.log('list cleaned');  
     list.length = 0;
-    }
+    
 }
-   
+    */
