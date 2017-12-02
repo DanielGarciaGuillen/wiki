@@ -87,9 +87,9 @@
 
 
 
-button {
+form {
     grid-column: 2/3;
-    grid-row: 4/5;
+    grid-row: 2/3;
     width: 25%;
     justify-self: center;
     background: #FFFFFF;
@@ -100,6 +100,15 @@ button {
     font-weight: bold;
    
 }
+
+
+.suggestions{
+    grid-column: 2/3;
+    grid-row: 3/4;
+    width: 100%;
+    
+}
+
 
 .footer {
     grid-column: 2/3;

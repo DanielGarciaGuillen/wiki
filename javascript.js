@@ -3,25 +3,31 @@ const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=se
 const urlEnd = "&srlimit=10";
 var list =[];
 
+var wordToSearch;
+
+
 
 function callApi(){
  fetch(proxyUrl + url+ this.value+ urlEnd)
     .then(blob=>blob.json())    
-    .then(data=> list.push(...data.query.search));
-        function findMatches(wordToMatch, list){
-            console.log(wordToMarch + list)
-            return list.filter(search => {      
-            const regex = new RegExp(wordToMatch, 'gi');
-            return search.title.match(regex)  
-                   
-    });
-    
-    }
+    .then(data=> list.push(...data.query.search))
+    console.log('callApi executed')
 }
 
+function findMatches(wordToMatch, list){
+    console.log('findmatches executed');
+    return list.filter(search => {      
+    var regex = new RegExp(wordToSearch, 'gi');
+    return search.title.match(regex)  
+           
+});
+}
 
-function displayMatches(){    
-    const matchArray = findMatches(wordToMatch, list);   
+function displayMatches(){  
+    
+     console.log(wordToSearch)
+     console.log(list)
+    const matchArray = findMatches(wordToSearch, list);   
     const html = matchArray.map(search =>{
         return`
         <li>
@@ -33,46 +39,23 @@ function displayMatches(){
 }
 
 
+function searchWord(){
+    wordToSearch = this.value;
+  /*   console.log(wordToSearch); */
+}
+
 const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
 
 
-searchInput.addEventListener('keyup', displayMatches);
-searchInput.addEventListener('keyup', callApi);
-searchInput.addEventListener('keydown', deleteList);
 
-function deleteList(){
+searchInput.addEventListener('keyup', callApi);
+
+searchInput.addEventListener('keyup',searchWord);
+searchInput.addEventListener('keyup', displayMatches);
+/* searchInput.addEventListener('keydown', deleteList); */
+
+/* function deleteList(){
     list.length =0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-fetch(proxyurl + url).then(function(response){
-    return response.json();
-   
-}).then(function(json){
-     console.log("parsed json", json) 
-    list = json.query.search;
-    console.log(list); 
-    list.forEach(function(k){
-        / console.log( k.title + k.snippet)
-       
-        console.log( list )
-       
-    });
-   
-  
-    
-}).catch(function(error){
-    console.log("There has been a problem" + error.message)
-}); */
+ */
