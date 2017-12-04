@@ -39,12 +39,14 @@ function displayMatches(){
     
     const matchArray = findMatches(wordToSearch, list);   
     const html = matchArray.map(pages =>{
-        console.log(pages.pageid);
+        
         return`
         <li>
         
         <span class="snippet">${pages.title}</span>
         <span class="snippet">${pages.terms.description}</span>
+        <span class="snippet">${pages.terms.description}</span>
+        <span class="snippet">${pages.extract}</span>
         
         
         
