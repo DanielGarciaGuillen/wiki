@@ -1,9 +1,11 @@
 const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=";
+const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageterms%7Cpageimages&list=&meta=&generator=search&formatversion=2&exlimit=max&exintro&gsrsearch=";
 
-const urlEnd = "&srlimit=10";
+const urlEnd = "&gsrprop=size%7Cwordcount%7Ctimestamp%7Csnippet";
 var list =[];
 
+/* https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageterms%7Cpageimages&list=&meta=&generator=search&formatversion=2&exlimit=max&exintro&gsrsearch=Daniel&gsrprop=size%7Cwordcount%7Ctimestamp%7Csnippet
+ */
 
 var wordToSearch;
 
@@ -17,8 +19,10 @@ function searchWord(){
 
 function apiRequest (){
     fetch(proxyUrl + url+ wordToSearch+ urlEnd)
+    
     .then(blob=>blob.json())    
-    .then(data=> list.push(...data.query.search))    
+    
+    .then(data=> list.push(...data.query.pages))    
     .then(displayMatches)
     console.log("display inside apirequest")    
     console.log('fetchApi executed');
@@ -27,20 +31,21 @@ function apiRequest (){
 }
 
 
-
+{/* <a href=${"http://en.wikipedia.org/?curid="+search.pageid} target="_blank">Link</a>  */}
 
 
 function displayMatches(){ 
     console.log("display Matches called");       
     
     const matchArray = findMatches(wordToSearch, list);   
-    const html = matchArray.map(search =>{
-        console.log(search.pageid);
+    const html = matchArray.map(pages =>{
+        console.log(pages.pageid);
         return`
         <li>
         
-        <span class="snippet">${search.snippet}</span>
-        <a href=${"http://en.wikipedia.org/?curid="+search.pageid} target="_blank">Link</a> 
+        <span class="snippet">${pages.title}</span>
+        <span class="snippet">${pages.terms.description}</span>
+        
         
         
         </li>
@@ -72,7 +77,7 @@ searchInput.addEventListener('keyup', apiRequest);
 
 /* searchInput.addEventListener('keyup', displayMatches); */
 
-searchInput.addEventListener('keydown', deleteList); 
+/* searchInput.addEventListener('keydown', deleteList); 
 
  function deleteList(){    
         
@@ -80,3 +85,4 @@ searchInput.addEventListener('keydown', deleteList);
     list.length = 0;
     
 }
+ */
