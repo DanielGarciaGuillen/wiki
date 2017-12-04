@@ -1,35 +1,48 @@
 const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=";
+
 const urlEnd = "&srlimit=10";
 var list =[];
 
+
 var wordToSearch;
 
-function callApi(){
- fetch(proxyUrl + url+ wordToSearch+ urlEnd)
+
+//Search Word 
+function searchWord(){
+    wordToSearch = this.value;
+    console.log("searchWord called "+ wordToSearch);
+}
+
+
+function apiRequest (){
+    fetch(proxyUrl + url+ wordToSearch+ urlEnd)
     .then(blob=>blob.json())    
-    .then(data=> list.push(...data.query.search))
-    console.log('callApi executed')
-}
-
-function findMatches(wordToMatch, list){
-    console.log('findmatches executed');
-    return list.filter(search => {      
-    var regex = new RegExp(wordToSearch, 'gi');
-    return search.title.match(regex)  
-           
-});
-}
-
-function displayMatches(){  
+    .then(data=> list.push(...data.query.search))    
+    .then(displayMatches)
+    console.log("display inside apirequest")    
+    console.log('fetchApi executed');
+    console.log(list);   
     
-     console.log(wordToSearch)
-     console.log(list)
+}
+
+
+
+
+
+function displayMatches(){ 
+    console.log("display Matches called");       
+    
     const matchArray = findMatches(wordToSearch, list);   
     const html = matchArray.map(search =>{
+        console.log(search.pageid);
         return`
         <li>
-        <span class="title">${search.title}, ${search.snippet}</span>
+        
+        <span class="snippet">${search.snippet}</span>
+        <a href=${"http://en.wikipedia.org/?curid="+search.pageid} target="_blank">Link</a> 
+        
+        
         </li>
         `;
     });
@@ -37,30 +50,33 @@ function displayMatches(){
 }
 
 
-function searchWord(){
-    wordToSearch = this.value;
-    console.log("searchWord called")
-  /*   console.log(wordToSearch); */
-}
+
+
+ function findMatches(wordToMatch, list,callback){
+    console.log('findmatches executed');
+    return list.filter(search => {      
+    var regex = new RegExp(wordToSearch, 'gi');
+    return search.title.match(regex)           
+});
+} 
+
+
+
 
 const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
 
 
-
-searchInput.addEventListener('keyup', callApi);
-
 searchInput.addEventListener('keyup',searchWord);
-searchInput.addEventListener('keyup', displayMatches);
+searchInput.addEventListener('keyup', apiRequest);
 
+/* searchInput.addEventListener('keyup', displayMatches); */
 
- searchInput.addEventListener('keydown', deleteList); 
+searchInput.addEventListener('keydown', deleteList); 
 
-/*  function deleteList(){
-     /* if( wordToSearch !== wordToSearch){
-        list = [];
+ function deleteList(){    
+        
         console.log('list cleaned');  
     list.length = 0;
     
 }
-    */
