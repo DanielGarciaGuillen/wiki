@@ -43,16 +43,16 @@ function displayMatches(){
         return`
         <li>
         
-        <span class="snippet">${pages.title}</span>
+        <span class="snippet"><h1>${pages.title}</h1></span>
         <span class="snippet">${pages.terms.description}</span>
-        <span class="snippet">${pages.terms.description}</span>
+        
         <span class="snippet">${pages.extract}</span>
         
         
         
         </li>
         `;
-    });
+    }).join("");
     suggestions.innerHTML = html;
 }
 
