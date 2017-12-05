@@ -13,42 +13,44 @@ var wordToSearch;
 //Search Word 
 function searchWord(){
     wordToSearch = this.value;
+    if(wordToSearch === ""){                   
+            suggestions.style.display = "none";
+        
+    }else {
+        suggestions.style.display = "block";
     console.log("searchWord called "+ wordToSearch);
-}
+        apiRequest()
+    }
+    }
+
 
 
 function apiRequest (){
-    fetch(proxyUrl + url+ wordToSearch+ urlEnd)
-    
+    fetch(proxyUrl + url+ wordToSearch+ urlEnd)    
     .then(blob=>blob.json())    
-    
-    .then(data=> list.push(...data.query.pages))    
+    .then(data=> list.push(...data.query.pages))   
+    //Promise fullfilled, call to displayMatches. 
     .then(displayMatches)
     console.log("display inside apirequest")    
     console.log('fetchApi executed');
-    console.log(list);   
-    
+    console.log(list);    
 }
 
 
 {/* <a href=${"http://en.wikipedia.org/?curid="+search.pageid} target="_blank">Link</a>  */}
+{/* <span class="snippet">${pages.extract}</span> */}
 
 
 function displayMatches(){ 
     console.log("display Matches called");       
     
     const matchArray = findMatches(wordToSearch, list);   
-    const html = matchArray.map(pages =>{
-        
+    const html = matchArray.map(pages =>{        
         return`
         <li>
         
         <span class="snippet"><h1>${pages.title}</h1></span>
-        <span class="snippet">${pages.terms.description}</span>
-        
-        <span class="snippet">${pages.extract}</span>
-        
-        
+        <span class="snippet">${pages.terms.description}</span>        
         
         </li>
         `;
@@ -68,14 +70,14 @@ function displayMatches(){
 } 
 
 
-
+document.querySelector('suggestions')
 
 const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
 
 
 searchInput.addEventListener('keyup',searchWord);
-searchInput.addEventListener('keyup', apiRequest);
+/* searchInput.addEventListener('keyup', apiRequest); */
 
 /* searchInput.addEventListener('keyup', displayMatches); */
 
