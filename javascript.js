@@ -33,13 +33,14 @@ function apiRequest (){
     .then(displayMatches)
     console.log("display inside apirequest")    
     console.log('fetchApi executed');
-    console.log(list);    
+    console.log(list);
+       
 }
 
 
 {/* <a href=${"http://en.wikipedia.org/?curid="+search.pageid} target="_blank">Link</a>  */}
 {/* <span class="snippet">${pages.extract}</span> */}
-
+{/* <img src=${pages.thumbnail.source} alt="Mountain View"> */}
 
 function displayMatches(){ 
     console.log("display Matches called");       
@@ -51,10 +52,11 @@ function displayMatches(){
         
         <span class="snippet"><h1>${pages.title}</h1></span>
         <span class="snippet">${pages.terms.description}</span>        
-        
+       
         </li>
         `;
     }).join("");
+   
     suggestions.innerHTML = html;
 }
 
@@ -70,23 +72,7 @@ function displayMatches(){
 } 
 
 
-document.querySelector('suggestions')
-
 const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
 
-
 searchInput.addEventListener('keyup',searchWord);
-/* searchInput.addEventListener('keyup', apiRequest); */
-
-/* searchInput.addEventListener('keyup', displayMatches); */
-
-/* searchInput.addEventListener('keydown', deleteList); 
-
- function deleteList(){    
-        
-        console.log('list cleaned');  
-    list.length = 0;
-    
-}
- */
