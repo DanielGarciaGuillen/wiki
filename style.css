@@ -19,7 +19,10 @@
     font-family: 'Open Sans', sans-serif;    
 }
 
-
+.searchTitle {
+    grid-area: search;
+    justify-items: center;
+}
 .header {
     grid-area: header;    
     text-align: center;
@@ -35,6 +38,16 @@
 
 .header p {
     padding: 3px;
+}
+
+.random {
+    grid-area: search;
+    align-self: auto;;
+}
+
+
+.filter {
+    grid-area: search;
 }
 
 
