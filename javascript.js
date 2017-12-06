@@ -12,12 +12,23 @@ function deleteList(){
 }
 
 //Search Word 
-function searchWord(){
+function searchWord(event){
     wordToSearch = this.value;
-    if(wordToSearch === ""){
+    var keyId = event.keyCode;
+    console.log(keyId);
+    if(wordToSearch === ""  && event.keyCode == 8){
             suggestions.innerHTML= "Filter for a wikipedia article";
             deleteList();
-    }else {
+           
+    }else if(event.keyCode == 8) {
+        deleteList();
+        apiRequest();
+    }
+    
+    
+    
+    
+    else {
             suggestions.style.display = "flex";
             console.log("searchWord called "+ wordToSearch);
             apiRequest()
@@ -47,7 +58,7 @@ function displayMatches(){
         <a href=${"http://en.wikipedia.org/?curid="+pages.pageid} target="_blank"> 
         <span class="title"><h1>${pages.title}</h1></span>               
        </a>
-       <span class="description">${pages.terms.description}</span> 
+       ${pages.terms.description}
         </li>
         `;
     }).join("");   
@@ -67,3 +78,5 @@ const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
 
 searchInput.addEventListener('keyup',searchWord);
+
+
