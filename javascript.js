@@ -4,6 +4,7 @@ const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=ex
 const urlEnd = "&gsrprop=size%7Cwordcount%7Ctimestamp%7Csnippet";
 var list =[];
 
+const urlImage = "https://commons.wikimedia.org/wiki/File:";
 /* https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageterms%7Cpageimages&list=&meta=&generator=search&formatversion=2&exlimit=max&exintro&gsrsearch=Daniel&gsrprop=size%7Cwordcount%7Ctimestamp%7Csnippet
  */
 
@@ -13,11 +14,12 @@ var wordToSearch;
 //Search Word 
 function searchWord(){
     wordToSearch = this.value;
-    if(wordToSearch === ""){                   
-            suggestions.style.display = "none";
+    if(wordToSearch === ""){  
+
+            suggestions.innerHTML= "Filter for a wikipedia article"
         
     }else {
-        suggestions.style.display = "block";
+        suggestions.style.display = "flex";
     console.log("searchWord called "+ wordToSearch);
         apiRequest()
     }
@@ -38,21 +40,26 @@ function apiRequest (){
 }
 
 
+
+/*  https://commons.wikimedia.org/wiki/File:  Maybe joint the value with this??? */
+
 {/* <a href=${"http://en.wikipedia.org/?curid="+search.pageid} target="_blank">Link</a>  */}
-{/* <span class="snippet">${pages.extract}</span> */}
-{/* <img src=${pages.thumbnail.source} alt="Mountain View"> */}
+
+
 
 function displayMatches(){ 
     console.log("display Matches called");       
     
-    const matchArray = findMatches(wordToSearch, list);   
-    const html = matchArray.map(pages =>{        
+    const matchArray = findMatches(wordToSearch, list);     
+    
+    const html = matchArray.map(pages =>{
+               
         return`
         <li>
-        
-        <span class="snippet"><h1>${pages.title}</h1></span>
-        <span class="snippet">${pages.terms.description}</span>        
-       
+        <a href=${"http://en.wikipedia.org/?curid="+pages.pageid} target="_blank"> 
+        <span class="title"><h1>${pages.title}</h1></span>               
+       </a>
+       <span class="description">${pages.terms.description}</span> 
         </li>
         `;
     }).join("");
