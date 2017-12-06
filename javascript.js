@@ -5,18 +5,24 @@ const urlEnd = "&gsrprop=size%7Cwordcount%7Ctimestamp%7Csnippet";
 var list =[];
 
 const urlImage = "https://commons.wikimedia.org/wiki/File:";
-/* https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageterms%7Cpageimages&list=&meta=&generator=search&formatversion=2&exlimit=max&exintro&gsrsearch=Daniel&gsrprop=size%7Cwordcount%7Ctimestamp%7Csnippet
- */
+
 
 var wordToSearch;
 
-
+function deleteList(){
+    list.length = 0;
+    console.log("delete list activated");
+    console.log(list);
+}
 //Search Word 
 function searchWord(){
     wordToSearch = this.value;
     if(wordToSearch === ""){  
 
-            suggestions.innerHTML= "Filter for a wikipedia article"
+            suggestions.innerHTML= "Filter for a wikipedia article";
+            deleteList();
+            
+           
         
     }else {
         suggestions.style.display = "flex";

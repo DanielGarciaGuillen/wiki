@@ -53,7 +53,8 @@ form {
 .suggestions{
     list-style-type: none;
     grid-area: list;
-    flex-wrap: wrap;    
+    flex-wrap: wrap;
+        
 }
     
 li {
