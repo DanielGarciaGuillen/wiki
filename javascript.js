@@ -17,20 +17,28 @@ function searchWord(event){
     wordToSearch = this.value;
     var keyId = event.keyCode;
     console.log(keyId);
-    if(wordToSearch === ""  && event.keyCode == 8){
-            
+    if(wordToSearch == ""){
             deleteList();
+            console.log("List deleted" + list);
+            
+           suggestions.style.visibility = "hidden";
+            
+            
+            
            
     }else if(event.keyCode == 8) {
+        console.log("else if")
         deleteList();
         apiRequest();
+        suggestions.style.visibility = "initial";
     }
     
     
     
     
     else {
-            suggestions.style.display = "flex";
+        suggestions.style.visibility = "initial";
+        suggestions.style.display = "flex";
             console.log("searchWord called "+ wordToSearch);
             apiRequest()
     }
@@ -77,6 +85,8 @@ function findMatches(wordToMatch, list,callback){
 
 const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
+
+const articles = document.querySelector('.article');
 
 searchInput.addEventListener('keyup',searchWord);
 
