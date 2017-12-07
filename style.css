@@ -7,10 +7,12 @@
     min-height: 100vh;
     min-width: 100vw;
     grid-template-columns: 1fr 4fr 1fr; 
-    grid-template-rows:  50px 50px auto 5%;   
+    grid-template-rows:  10vh 5vh 5vh 5vh auto 5vh;   
     grid-template-areas: 
-    ". header ." 
-    ". search ." 
+    ". header ."
+    ". title ."  
+    ". search ."
+    ". random ." 
     ". list ."
     ". footer .";   
     align-items: center; 
@@ -22,6 +24,12 @@
 .searchTitle {
     grid-area: search;
     justify-items: center;
+}
+
+
+.title{
+    grid-area: title;
+    color: #FFFFFF;
 }
 .header {
     grid-area: header;    
@@ -41,15 +49,20 @@
 }
 
 .random {
-    grid-area: search;
-    align-self: auto;;
+    grid-area: random;
+    align-self: auto;
+    
 }
-
-
-.filter {
-    grid-area: search;
+.random :hover{
+    color: grey;
 }
-
+.random a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.random a:visited{
+    color: #FFFFFF;
+}
 
 form {    
     grid-area: search;   
@@ -67,9 +80,14 @@ form {
     list-style-type: none;
     grid-area: list;
     flex-wrap: wrap;
-        
+    min-height: 70vh;
+   
 }
-    
+
+ .titleH1 :hover {
+    color: grey;
+ }   
+
 li {
     background: white;
     padding: 5px 5px 5px 5px;
@@ -88,9 +106,11 @@ li a {
 }
 
 
-.title :hover{
-    color: grey;
+.article {
+    max-height: 80px;
 }
+
+
 
 .footer {
     grid-area: footer;     
@@ -101,4 +121,3 @@ li a {
 .footer a {
     color: #FFFFFF;
 }
-

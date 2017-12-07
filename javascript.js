@@ -1,3 +1,4 @@
+
 const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageterms%7Cpageimages&list=&meta=&generator=search&formatversion=2&exlimit=max&exintro&gsrsearch=";
 const urlEnd = "&gsrprop=size%7Cwordcount%7Ctimestamp%7Csnippet";
@@ -17,7 +18,7 @@ function searchWord(event){
     var keyId = event.keyCode;
     console.log(keyId);
     if(wordToSearch === ""  && event.keyCode == 8){
-            suggestions.innerHTML= "Filter for a wikipedia article";
+            
             deleteList();
            
     }else if(event.keyCode == 8) {
@@ -54,9 +55,9 @@ function displayMatches(){
     const matchArray = findMatches(wordToSearch, list);    
     const html = matchArray.map(pages =>{               
         return`
-        <li>
+        <li class="article">
         <a href=${"http://en.wikipedia.org/?curid="+pages.pageid} target="_blank"> 
-        <span class="title"><h1>${pages.title}</h1></span>               
+        <span class="titleH1"><h1>${pages.title}</h1></span>               
        </a>
        ${pages.terms.description}
         </li>
@@ -78,5 +79,4 @@ const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
 
 searchInput.addEventListener('keyup',searchWord);
-
 
